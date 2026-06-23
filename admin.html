@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - PraiasBrasil</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header style="background-color: #2c3e50;">
+        <div class="container navbar">
+            <div class="logo" onclick="window.location.href='index.html'">🏖️ PraiasBrasil <span style="font-size:10pt; color:#e67e22;">[ADMIN]</span></div>
+            <nav>
+                <a href="index.html" class="nav-link">Voltar ao Site</a>
+                <a id="btn-logout" class="nav-link hidden" onclick="AppAdmin.logout()" style="color:var(--danger); font-weight:bold;">Sair</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="sec-login" class="view-section">
+        <div class="container card" style="max-width: 450px; margin-top: 50px;">
+            <h2 style="text-align: center; margin-bottom: 20px;">Acesso Restrito</h2>
+            <form onsubmit="AppAdmin.login(event)">
+                <div class="form-group">
+                    <label>Usuário:</label>
+                    <input type="text" id="login-user" required placeholder="admin">
+                </div>
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input type="password" id="login-pass" required placeholder="admin">
+                </div>
+                <button type="submit" class="btn" style="width:100%; background-color: #2c3e50;">Entrar</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="sec-dashboard" class="view-section hidden">
+        <div class="container card">
+            <h2>Gestão Operacional de Destinos (CRUD)</h2>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 6px; margin-top: 15px; margin-bottom: 30px;">
+                <h3 id="form-titulo" style="margin-bottom: 15px;">Cadastrar Novo Destino (Create)</h3>
+                <form id="form-crud" onsubmit="AppAdmin.salvarRegistro(event)">
+                    <input type="hidden" id="crud-id">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div class="form-group">
+                            <label>Nome:</label>
+                            <input type="text" id="crud-nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Estado (Sigla):</label>
+                            <input type="text" id="crud-estado" required maxlength="2">
+                        </div>
+                        <div class="form-group">
+                            <label>Custo (1 a 5 💰):</label>
+                            <input type="number" id="crud-custo" min="1" max="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label>URL da Imagem:</label>
+                            <input type="url" id="crud-img" required value="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=700">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição:</label>
+                        <textarea id="crud-desc" rows="2" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Comércios (Separados por vírgula):</label>
+                        <input type="text" id="crud-comercio" placeholder="Restaurante X, Escola de Surf Y">
+                    </div>
+                    <div class="form-group">
+                        <label>Infraestrutura (Separados por vírgula):</label>
+                        <input type="text" id="crud-infra" placeholder="Banheiros, Salva-vidas">
+                    </div>
+                    <button type="submit" class="btn" id="btn-submit-crud" style="background-color: var(--success);">Salvar</button>
+                    <button type="button" class="btn" style="background-color: #7f8c8d;" onclick="AppAdmin.limparFormulario()">Cancelar</button>
+                </form>
+            </div>
+
+            <h3>Registros no Banco de Dados</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Praia</th>
+                            <th>Estado</th>
+                            <th>Custo</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-corpo-admin"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Guia Praias Brasil S.A. Painel Administrativo.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        window.onload = () => {
+            if(sessionStorage.getItem('admin_autenticado') === 'true') {
+                AppAdmin.exibirPainel();
+            }
+        }
+    </script>
+</body>
+</html>

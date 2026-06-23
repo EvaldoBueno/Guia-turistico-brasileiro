@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PraiasBrasil - Guia de Destinos Costeiros</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <div class="container navbar">
+            <div class="logo" onclick="App.navegar('home')">🏖️ PraiasBrasil</div>
+            <nav>
+                <a onclick="App.navegar('home')" class="nav-link active" id="btn-home">Início</a>
+                <a onclick="App.navegar('sobre')" class="nav-link" id="btn-sobre">Sobre Nós</a>
+                <a onclick="App.navegar('praias')" class="nav-link" id="btn-praias">Praias (Serviços)</a>
+                <a onclick="App.navegar('favoritos')" class="nav-link" id="btn-favoritos">Favoritos</a>
+                <a onclick="App.navegar('historico')" class="nav-link" id="btn-historico">Histórico</a>
+                <a onclick="App.navegar('contato')" class="nav-link" id="btn-contato">Contato</a>
+                <a href="admin.html" class="nav-link" style="color: #e67e22; font-weight: bold;">🔑 Área Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="sec-home" class="view-section">
+        <div class="hero">
+            <h1>Explore as Melhores Praias do Brasil</h1>
+            <p>Seu guia definitivo para encontrar o próximo destino tropical perfeito.</p>
+            <button class="btn" style="background-color: var(--accent); margin-top: 15px;" onclick="App.navegar('praias')">Começar a Explorar</button>
+        </div>
+    </section>
+
+    <section id="sec-sobre" class="view-section hidden">
+        <div class="container card">
+            <h2>Quem Somos</h2>
+            <p style="margin-top: 15px; text-align: justify; line-height: 1.7;">
+                O <strong>Guia Praias Brasil</strong> é a principal plataforma digital corporativa focada no mapeamento e curadoria do ecossistema costeiro do Brasil. Fundada em 2026, nossa empresa nasceu do turismo sustentável e da necessidade tecnológica de conectar viajantes a infraestruturas locais.
+            </p>
+            <div class="sobre-grid">
+                <div class="mvv-card">
+                    <h3>🎯 Nossa Missão</h3>
+                    <p>Facilitar a descoberta das riquezas praianas do Brasil por meio da tecnologia, promovendo negócios locais.</p>
+                </div>
+                <div class="mvv-card">
+                    <h3>👁️ Nossa Visão</h3>
+                    <p>Ser o maior guia tecnológico de praias do território nacional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sec-praias" class="view-section hidden">
+        <div class="container">
+            <h2>Nossos Destinos Catalogados</h2>
+            <div class="search-box" style="margin-top: 15px;">
+                <input type="text" id="input-busca" placeholder="Pesquise por praia ou estado (Ex: BA, PE, RJ)..." onkeyup="App.processarFiltrosEOrdenacao()">
+            </div>
+            <div class="filter-container">
+                <span>Ordenar:</span>
+                <select id="select-ordenacao" class="filter-select" onchange="App.processarFiltrosEOrdenacao()">
+                    <option value="todos">Todas as Praias</option>
+                    <option value="az">Ordem Alfabética (A - Z)</option>
+                    <option value="mais-gostos">Mais Curtidas 👍</option>
+                    <option value="mais-baratas">Mais Baratas 💰</option>
+                </select>
+            </div>
+            <div id="lista-praias" class="grid"></div>
+        </div>
+    </section>
+
+    <section id="sec-detalhes" class="view-section hidden">
+        <div class="container card">
+            <button class="btn" style="margin-bottom: 20px; background-color: #7f8c8d;" onclick="App.voltarParaLista()">← Voltar</button>
+            <div id="conteudo-detalhes"></div>
+        </div>
+    </section>
+
+    <section id="sec-favoritos" class="view-section hidden">
+        <div class="container">
+            <h2>Meus Lugares Favoritos</h2>
+            <div id="lista-favoritos" class="grid"></div>
+        </div>
+    </section>
+
+    <section id="sec-historico" class="view-section hidden">
+        <div class="container card">
+            <div style="display:flex; justify-content: space-between; align-items: center;">
+                <h2>Histórico de Visualização</h2>
+                <button class="btn btn-danger" onclick="App.limparHistorico()">Limpar Histórico</button>
+            </div>
+            <ul id="lista-historico" class="history-list" style="margin-top: 15px;"></ul>
+        </div>
+    </section>
+
+    <section id="sec-contato" class="view-section hidden">
+        <div class="container card">
+            <h2>Fale Conosco</h2>
+            <form id="form-contato" onsubmit="App.enviarContato(event)">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input type="text" id="contato-nome" required>
+                </div>
+                <div class="form-group">
+                    <label>E-mail:</label>
+                    <input type="email" id="contato-email" required>
+                </div>
+                <div class="form-group">
+                    <label>Mensagem:</label>
+                    <textarea id="contato-msg" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Guia Praias Brasil S.A. Arquitetura Clean MVC.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
